@@ -1,0 +1,4 @@
+# DEĞİŞKENLER
+1-  var: variable: eski ve yeni sürümlerde kullanılır. Aynı değişkeni tekrar tekrar kullanabilir.
+2- let: yeni sürümlerde kullanılır.
+3- const: yeni sürümlerde kullanılır.
