@@ -42,17 +42,6 @@ switch(Number(floatNum[1])){
 case 0:inones =""; break;
 case 5:inones = ["NICKEL", Number(floatNum[1])]; break;
 default :inones = ["PENNY", Number(floatNum[1])]; break;}
-/*switch(intNum.length){
-case 3: changeInt.push(hund,tens,ones); break;
-case 2: changeInt.push(tens,ones); break;
-case 1: changeInt.push(ones); break;
-default: changeInt = "";}
-switch(floatNum.length){
-case 1: changeFloat.push(intens); break;
-case 2: changeFloat.push(intens,inones); break;
-default: changeFloat = "";
-}*/
-//change.push(changeInt,changeFloat);
 change.push(hund,tens,ones,intens,inones);
 console.log(exchange);
   console.log(hund);
