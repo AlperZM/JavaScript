@@ -56,3 +56,72 @@ console.log(inones);
 }
 
 checkCashRegister(7.72, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]);
+
+// fixExchange hatası 13:05
+function checkCashRegister(price, cash, cid) {
+  let change=[]; let status = ""; let cashBack = {status:"", change:[]};
+  let exchange = (cash - price);  
+  // status
+if(exchange < 0){cashBack = {status: "INSUFFICIENT_FUNDS", change: []};}
+  else if(exchange = 0){cashBack = {status: "CLOSED", change: [...cid]};}
+  
+  let cidx = {
+  "PENNY": (cid[0][1]/0.01), "NICKEL": Math.floor((cid[1][1] / 0.05)), 
+  "DİME": (cid[2][1]/0.1), "QUARTER": (cid[3][1]/0.25), 
+  "ONE": (cid[4][1]/1), "FIVE": (cid[5][1]/5),
+  "TEN": (cid[6][1]/10),"TWENTY": (cid[7][1]/20),
+  "ONE HUNDRED": (cid[8][1]/100),};
+  //sayıyı onluk ve biliklere böl.
+
+let fixExchange = exchange.toString().split(".");
+let intNum = fixExchange[0].split("").reverse(); 
+let floatNum = fixExchange[1].slice(0,2).split("");
+let hund=Number(intNum[2]=== 0); let tens= Number(intNum[1]=== 0); let ones= Number(intNum[0]); let inones=Number(floatNum[1]===0); let intens=Number((floatNum)[0]===0);
+//1
+if(Number(intNum[1]) ?? NaN){
+switch(Number(intNum[0])){
+case  0: ones = ""; break;
+case 5: ones = ["FİVE", Number(intNum[0])]; break;
+default: ones = ["ONE", Number(intNum[0])]; break;} } else {
+  ones = "";}
+  //10
+if(Number(intNum[1]) ?? NaN){
+switch(Number(intNum[1])){
+case 0: tens= ""; break;
+case 2: tens = ["TWENTY", Number(intNum[1])]; break;
+default: tens = ["TEN", Number(intNum[1])]; break;} } else {
+  tens = "";}
+  //100
+ if(intNum.length>=3){
+switch(Number(intNum[2])){
+case 0: hund = ""; break;
+default: hund = ["HUNDRED", Number(intNum[2])]; break;}} else {
+hund = "";}
+  //0,1
+if(Number(floatNum[0]) ?? NaN){
+switch (Number(floatNum[0])){
+case 0: intens = ""; break;
+default: intens = ["DİME", Number(floatNum[0])]; break;}} else {
+  intens = "";}
+if(Number(floatNum)[0] ===2 && Number(floatNum[0]) === 5){
+intens = ["QUARTER", 25];}
+  //0,01
+if(Number(floatNum[1]) ?? NaN){
+switch(Number(floatNum[1])){
+case 0:inones =""; break;
+case 5:inones = ["NICKEL", Number(floatNum[1])]; break;
+default :inones = ["PENNY", Number(floatNum[1])]; break;}} else {
+  inones = "";}
+
+let result =[]; result.push(hund,tens,ones,intens,inones);
+change = result.filter(e => e != "");
+console.log(cashBack);
+ 
+
+ // return change;
+}
+
+checkCashRegister(18.01, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]])
+
+
+
