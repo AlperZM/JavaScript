@@ -1,1 +1,69 @@
 // FCC Cash Register kodları
+// 02.12.2021 - 09:50
+function checkCashRegister(price, cash, cid) {
+  let change=[]; let changeInt=[]; let changeFloat=[];
+  let exchange = (cash - price); 
+  let cidx = {
+  "PENNY": (cid[0][1]/0.01), "NICKEL": Math.floor((cid[1][1] / 0.05)), 
+  "DİME": (cid[2][1]/0.1), "QUARTER": (cid[3][1]/0.25), 
+  "ONE": (cid[4][1]/1), "FIVE": (cid[5][1]/5),
+  "TEN": (cid[6][1]/10),"TWENTY": (cid[7][1]/20),
+  "ONE HUNDRED": (cid[8][1]/100),};
+  //sayıyı onluk ve biliklere böl.
+let fixExchange = exchange.toString().split(".");
+    
+    /*parseFloat(exchange).toPrecision(3).split(".")*/;
+let intNum = fixExchange[0].split("").reverse(); 
+let floatNum = fixExchange[1].slice(0,2).split("");
+let hund=Number(intNum[2]=== 0); let tens= Number(intNum[1]=== 0); let ones= Number(intNum[0]); let inones=Number(floatNum[1]===0); let intens=Number((floatNum)[0]===0);
+//1
+switch(Number(intNum[0])){
+case  0: ones = ""; break;
+case 5: ones = ["FİVE", intNum[0]]; break;
+default: ones = ["ONE", intNum[0]]; break;}
+  //10
+switch(Number(intNum[1])){
+case 0: tens= ""; break;
+case 2: tens = ["TWENTY", intNum[1]]; break;
+default: tens = ["TEN", intNum[1]]; break;}
+  //100
+switch(Number(intNum[2])){
+case 0: hund = ""; break;
+  case NaN: 
+default: hund = ["HUNDRED", Number(intNum[2])]; break;}
+  //0,1
+switch (Number(floatNum[0])){
+case 0: intens = ""; break;
+default: intens = ["DİME", Number(floatNum[0])]; break;}
+if(Number(floatNum)[0] ===2 && Number(floatNum[0]) === 5){
+intens = ["QUARTER", 25];}
+  //0,01
+switch(Number(floatNum[1])){
+case 0:inones =""; break;
+case 5:inones = ["NICKEL", Number(floatNum[1])]; break;
+default :inones = ["PENNY", Number(floatNum[1])]; break;}
+/*switch(intNum.length){
+case 3: changeInt.push(hund,tens,ones); break;
+case 2: changeInt.push(tens,ones); break;
+case 1: changeInt.push(ones); break;
+default: changeInt = "";}
+switch(floatNum.length){
+case 1: changeFloat.push(intens); break;
+case 2: changeFloat.push(intens,inones); break;
+default: changeFloat = "";
+}*/
+//change.push(changeInt,changeFloat);
+change.push(hund,tens,ones,intens,inones);
+console.log(exchange);
+  console.log(hund);
+  console.log(tens);
+  console.log(ones);
+  console.log(intens); 
+console.log(inones);
+  console.log(change)
+  
+
+ // return change;
+}
+
+checkCashRegister(7.72, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]);
