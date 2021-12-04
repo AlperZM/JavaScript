@@ -72,10 +72,12 @@ for(let i = 0; i<cixT.length; i++){
 total += (cixT[i]*100);
 }
 // paraüstü
-console.log(diff);
-console.log(change);
+let changeValue = (Number(hund)*100)+(Number(tens)*100)+(Number(ones)*100)+(Number(intens)*100)+(Number(inones)*100);
 
- 
+
+
+console.log(changeValue);
+console.log(total);
  // return change;
 }
 
