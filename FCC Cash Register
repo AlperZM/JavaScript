@@ -1,16 +1,21 @@
 //04.12 -- 15:55
 //06.12 -- 12:50
-
 function checkCashRegister(price, cash, cid) {
   let change=[]; let status = ""; let money = {status :"", change:[]};
-  let diff = (cash - price);  
-
-  let cidx = [...cid]/*{
+  let diff = (cash - price)*100;  //fark
+  let cidx = {
   "PENNY": (cid[0][1]/0.01), "NICKEL": Math.floor((cid[1][1] / 0.05)), 
   "DIME": (cid[2][1]/0.1), "QUARTER": (cid[3][1]/0.25), 
   "ONE": (cid[4][1]/1), "FIVE": (cid[5][1]/5),
   "TEN": (cid[6][1]/10),"TWENTY": (cid[7][1]/20),
-  "ONE HUNDRED": (cid[8][1]/100)};*/
+  "ONE HUNDRED": (cid[8][1]/100)};
+  
+  // kontrol
+let cixT = Object.values(cidx);
+let total=0;
+for(let i = 0; i<cixT.length; i++){
+total += (cixT[i]*100);
+}
   //sayıyı onluk ve biliklere böl.
 
 let fixExchange = diff.toString().split(".");
@@ -65,22 +70,27 @@ break;}} else {
 let result =[]; result.push(hund,tens,ones,intens,inones);
 change = result.filter(e => e != "");
 
-// kontrol
-let cixT = Object.values(cidx);
-let total=0;
-for(let i = 0; i<cixT.length; i++){
-total += (cixT[i]*100);
-}
+
 // paraüstü
-let exchange = diff*100;
 // final
-if(exchange > total){
+if(diff > total/100){
 money = {status: "OPEN", change: [...change]};}
-else if (exchange === total){
-money = {status: "CLOSED", change: [...change]};}
-else {
+else if (diff === total/100){
+money = {status: "CLOSED", change: [...cid]};}
+else if(diff<total/100){
 money = {status: "INSUFFICIENT_FUNDS", change: []};
 }
+
+//console.log(exchange);
+console.log(money);
+//console.log(diff);
+//console.log(total);
+
+ 
+ return money;
+}
+checkCashRegister(3.26, 100, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]])
+
 
 //console.log(exchange);
 console.log(money);
