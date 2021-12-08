@@ -1,39 +1,32 @@
 //04.12 -- 15:55
 //06.12 -- 12:50
 // 07.12 --18:05
-
-
+//08.12 -- 10:45
 function checkCashRegister(price, cash, cid) {
-let money = {status :"", change:[]};
-  let diff = (cash - price) * 100;  
-  let controlMoney = [10000, 2000, 1000, 500, 100, 25, 10, 5, 1]
-  let backMoney = [["ONE HUNDRED", 0], ["TWENTY", 0], 
-["TEN", 0], ["FIVE", 0], ["ONE", 0], ["QUARTER", 0], 
-["DIME", 0], ["NICKEL", 0], ["PENNY", 0],];
-
-  let cashMoney = [...cid].reverse().map(el => [el[0], el[1] * 100]); 
-  let totalCash = cashMoney.reduce((a,b) => (a +b[1]),0)/100; 
-
-  if(totalCash === diff / 100){
-  money = {status: "CLOSED", change: [...cid]};
-  } else for
-  (let i = 0; i < cashMoney.length; i++)
-  {
-  while (controlMoney[i] <= diff && cashMoney[i][1] >0){
-  backMoney[i][1] += controlMoney[i];
-  diff -= controlMoney[i];
-  cashMoney -= controlMoney[i]; }
- }
-let change = backMoney.map(el => [el[0], el[1] / 100]) .filter(el => el[1] !== 0);
-
-let total = change.reduce((a,b) => (a +b[1]),0);
-
-diff = (cash - price)*100;
-if(total < diff){
-money = {status: "INSUFFICIENT_FUNDS", change: []};
-} else if(total > diff) {money = {status: "OPEN", change}; }
-
-
- return money;
-}
-checkCashRegister(19.5, 20, [["PENNY", 0.5], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]])
+  const controlMoney = [10000, 2000, 1000, 500, 100, 25, 10, 5, 1, ];
+  function result(price, cash, cid) {
+    let diff = (cash - price) * 100;
+    let backMoney = [["ONE HUNDRED", 0], ["TWENTY", 0],
+["TEN", 0], ["FIVE", 0], ["ONE", 0], ["QUARTER", 0],
+["DIME", 0], ["NICKEL", 0],["PENNY", 0]];
+let cashMoney = [...cid].reverse().map(el => [el[0], el[1] * 100]);
+let totalCash = cashMoney.reduce((a, b) => (a + b[1]), 0) / 100;
+ if (totalCash === diff / 100) {return {status: "CLOSED",
+change: [...cid]};}
+    else
+ for (let i = 0; i < cashMoney.length; i++) {
+while (controlMoney[i] <= diff && cashMoney[i][1] > 0) {
+backMoney[i][1] += controlMoney[i];
+diff -= controlMoney[i];
+cashMoney[i][1] -= controlMoney[i];}}
+let change = backMoney.map(el => [el[0], el[1] / 100])
+      .filter(el => el[1] !== 0);
+let changeTotal = change.reduce((a, b) => (a + b[1]), 0);
+    if (changeTotal < diff) {
+return {status: "INSUFFICIENT_FUNDS", change: []};}
+return {status: "OPEN", change };}
+let money = result(price, cash, cid);
+console.log(money);
+  return money;
+};
+checkCashRegister(19.5, 20, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 1], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]])
